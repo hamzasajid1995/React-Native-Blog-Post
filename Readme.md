@@ -1,1 +1,1 @@
-# React native blog post
+# React Native Blog Post
