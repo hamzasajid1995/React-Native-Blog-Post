@@ -25,6 +25,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import SplashScreen from 'react-native-splash-screen';
 
 const Section = ({children, title}): Node => {
@@ -70,6 +71,7 @@ const App: () => Node = () => {
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
+        <Icon name="rocket" size={30} color="#900" />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
