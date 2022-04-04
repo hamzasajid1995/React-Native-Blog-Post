@@ -18,19 +18,15 @@ import {Provider, useDispatch, useSelector} from 'react-redux';
 import {setPosts} from './src/redux/postSlice';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import Toast from 'react-native-root-toast';
+import AppContainer from './src/AppContainer';
 
 const App = () => {
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
-
   return (
     <SafeAreaProvider>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Posts />
+          <AppContainer />
         </PersistGate>
-        {/* <NavigationContainer></NavigationContainer> */}
       </Provider>
     </SafeAreaProvider>
   );
