@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   View,
@@ -10,21 +10,17 @@ import {
 import Toast from 'react-native-root-toast';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import Loader from '../common/Loader';
-
 import formData from '../../../form-data.json';
 import DatePicker from 'react-native-date-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {setUser} from '../../redux/userSlice';
+import MyText from '../common/MyText';
+import Layout from '../constants/layout';
 
 function UserFormScreen() {
   const [data, setData] = useState(formData);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(data);
-  }, []);
 
   const updateData = (key, value) => {
     setData(prevData => {
@@ -47,87 +43,119 @@ function UserFormScreen() {
       );
       return;
     }
-
     dispatch(setUser(data));
   };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <ScrollView keyboardDismissMode="interactive">
-        {data.map(input => {
-          switch (input.type) {
-            case 'image':
-              return (
-                <ImagePicker
-                  key={input.key}
-                  input={input}
-                  onChange={value => {
-                    console.log(value);
-                    updateData(input.key, value);
-                  }}
-                />
-              );
-            case 'text':
-              return (
-                <CustomTextInput
-                  key={input.key}
-                  input={input}
-                  onChange={value => {
-                    console.log(value);
-                    updateData(input.key, value);
-                  }}
-                />
-              );
-            case 'radio':
-              return (
-                <RadioOptions
-                  key={input.key}
-                  input={input}
-                  onChange={value => {
-                    console.log(value);
-                    updateData(input.key, value);
-                  }}
-                />
-              );
-            case 'date':
-              return (
-                <CustomDatePicker
-                  key={input.key}
-                  input={input}
-                  onChange={value => {
-                    console.log(value);
-                    updateData(input.key, value);
-                  }}
-                />
-              );
+    <SafeAreaView style={{flex: 1}} edges={['bottom', 'left', 'right']}>
+      <View style={{flex: 1}}>
+        <ScrollView
+          contentContainerStyle={{padding: 16}}
+          keyboardDismissMode="interactive">
+          {data.map(input => {
+            return (
+              <View style={{marginBottom: 16}} key={input.key}>
+                <MyText style={{marginBottom: 8, fontWeight: 'bold'}}>
+                  {`${input.label} ${input.required ? '*' : ''}`}
+                </MyText>
+                {(function () {
+                  switch (input.type) {
+                    case 'image':
+                      return (
+                        <ImagePicker
+                          input={input}
+                          onChange={value => {
+                            console.log(value);
+                            updateData(input.key, value);
+                          }}
+                        />
+                      );
+                    case 'text':
+                      return (
+                        <CustomTextInput
+                          input={input}
+                          onChange={value => {
+                            console.log(value);
+                            updateData(input.key, value);
+                          }}
+                        />
+                      );
+                    case 'radio':
+                      return (
+                        <RadioOptions
+                          input={input}
+                          onChange={value => {
+                            console.log(value);
+                            updateData(input.key, value);
+                          }}
+                        />
+                      );
+                    case 'date':
+                      return (
+                        <CustomDatePicker
+                          input={input}
+                          onChange={value => {
+                            console.log(value);
+                            updateData(input.key, value);
+                          }}
+                        />
+                      );
 
-            default:
-              return null;
-          }
-        })}
-        <Pressable onPress={handleSubmit}>
-          <Text>Submit</Text>
+                    default:
+                      return null;
+                  }
+                })()}
+              </View>
+            );
+          })}
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          flex: 0,
+          padding: 16,
+          paddingTop: 0,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+
+          elevation: 5,
+        }}>
+        <Pressable
+          onPress={handleSubmit}
+          style={{
+            backgroundColor: Layout.primaryColor,
+            padding: 16,
+          }}>
+          <MyText style={{color: '#fff', textAlign: 'center'}}>Submit</MyText>
         </Pressable>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
 
 function CustomTextInput({input, onChange}) {
   return (
-    <View>
-      <Text>
-        {input.label} {input.required ? '*' : ''}
-      </Text>
-      <TextInput
-        value={input.value}
-        onChangeText={text => onChange(text)}
-        placeholder={input.placeholder}
-        keyboardType={input.key === 'email' ? 'email-address' : 'default'}
-        textContentType={input.key === 'email' ? 'emailAddress' : 'none'}
-        autoCapitalize="none"
-      />
-    </View>
+    <TextInput
+      style={{
+        backgroundColor: '#ddd',
+        borderRadius: 8,
+        padding: 8,
+        height: 40,
+        color: '#000',
+      }}
+      value={input.value}
+      onChangeText={text => onChange(text)}
+      placeholder={input.placeholder}
+      placeholderTextColor="#bbb"
+      keyboardType={input.key === 'email' ? 'email-address' : 'default'}
+      textContentType={input.key === 'email' ? 'emailAddress' : 'none'}
+      autoCapitalize="none"
+    />
   );
 }
 
@@ -147,57 +175,54 @@ function ImagePicker({input, onChange}) {
   };
   console.log(input.value?.uri);
   return (
-    <View>
-      <Text>{input.label}</Text>
-      <Pressable
-        onPress={openGallery}
-        style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50,
-          backgroundColor: '#ccc',
-          overflow: 'hidden',
-        }}>
-        <Image
-          source={{uri: input.value?.uri, isStatic: true}}
-          style={{width: '100%', height: '100%'}}
-        />
-      </Pressable>
-    </View>
+    <Pressable
+      onPress={openGallery}
+      style={{
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        backgroundColor: '#ccc',
+        overflow: 'hidden',
+        alignSelf: 'center',
+      }}>
+      <Image
+        source={{uri: input.value?.uri, isStatic: true}}
+        style={{width: '100%', height: '100%'}}
+      />
+    </Pressable>
   );
 }
 
 function RadioOptions({input, onChange}) {
   return (
-    <View>
-      <Text>{input.label}</Text>
-      <View style={{flexDirection: 'row'}}>
-        {input.options.map(option => (
-          <Pressable
-            key={option.key}
-            onPress={() => {
-              onChange(option.key);
-            }}
+    <View style={{flexDirection: 'row'}}>
+      {input.options.map(option => (
+        <Pressable
+          key={option.key}
+          onPress={() => {
+            onChange(option.key);
+          }}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginRight: 12,
+          }}>
+          <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
+              width: 15,
+              height: 15,
+              borderRadius: 8,
+              borderWidth: 2,
+              borderColor:
+                input.value === option.key ? Layout.primaryColor : '#000',
+              backgroundColor:
+                input.value === option.key ? Layout.primaryColor : '#fff',
               marginRight: 6,
-            }}>
-            <View
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: 5,
-                borderWidth: 2,
-                borderColor: '#000',
-                backgroundColor: input.value === option.key ? '#000' : '#fff',
-                marginRight: 6,
-              }}
-            />
-            <Text>{option.label}</Text>
-          </Pressable>
-        ))}
-      </View>
+            }}
+          />
+          <MyText>{option.label}</MyText>
+        </Pressable>
+      ))}
     </View>
   );
 }
@@ -215,9 +240,21 @@ function CustomDatePicker({input, onChange}) {
   const date = input.value ? new Date(input.value) : new Date();
   return (
     <View>
-      <Text>{input.label}</Text>
-      <Pressable onPress={() => setShow(true)}>
-        <Text>{input.value ? getDateString(date) : input.placeholder}</Text>
+      <Pressable
+        style={{
+          backgroundColor: '#ddd',
+          borderRadius: 8,
+          padding: 8,
+          height: 40,
+          justifyContent: 'center',
+        }}
+        onPress={() => setShow(true)}>
+        <MyText
+          style={{
+            color: input.value ? '#000' : '#bbb',
+          }}>
+          {input.value ? getDateString(date) : input.placeholder}
+        </MyText>
       </Pressable>
       <DatePicker
         modal
