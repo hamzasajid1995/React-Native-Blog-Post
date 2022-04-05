@@ -72,5 +72,7 @@
 		<string>Product-Sans-Bold.ttf</string>
 		<string>Product-Sans-Regular.ttf</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App wants to access your media library</string>
 </dict>
 </plist>

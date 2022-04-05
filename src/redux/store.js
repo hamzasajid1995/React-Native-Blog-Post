@@ -12,13 +12,15 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import postReducer from './postSlice';
-const rootReducer = combineReducers({post: postReducer});
+import userReducer from './userSlice';
+
+const rootReducer = combineReducers({post: postReducer, user: userReducer});
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage: AsyncStorage,
-  blacklist: ['post'],
+  whitelist: ['user'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

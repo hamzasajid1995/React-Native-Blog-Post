@@ -6,22 +6,35 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AddPostScreen from '../components/screens/AddPostScreen';
 import HomeScreen from '../components/screens/HomeScreen';
 import UserFormScreen from '../components/screens/UserFormScreen';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUser} from '../redux/userSlice';
 
 const Stack = createStackNavigator();
 
 function AppNavigator() {
+  const {userData} = useSelector(state => state.user);
+  console.log('user', userData);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // dispatch(setUser(null));
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="UserForm"
-          component={UserFormScreen}
-          options={{
-            title: 'Personal Info',
-            headerTitle: 'Personal Info',
-            headerBackTitle: '',
-          }}
-        />
+        {!userData ? (
+          <Stack.Screen
+            name="UserForm"
+            component={UserFormScreen}
+            options={{
+              title: 'Personal Info',
+              headerTitle: 'Personal Info',
+              headerBackTitle: '',
+            }}
+          />
+        ) : null}
+
         <Stack.Screen
           name="Home"
           component={HomeScreen}
