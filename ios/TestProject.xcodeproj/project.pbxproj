@@ -32,7 +32,6 @@
 		D9AD8686F52245A0800C2F4D /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDD5F3BBE6B4401F81E85CD7 /* AntDesign.ttf */; };
 		F82B2AD0833B430B87BAA4F0 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5398A9FAD424BF4ADC17B4F /* Ionicons.ttf */; };
 		FE3DCE1632004F4D8A049D58 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7C598C651E4645208640AD23 /* Entypo.ttf */; };
-		FFA262EF0B3445AAAFACF822 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CE0BD4F7D7047DDB52FA0F1 /* Poppins-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +63,7 @@
 		278DFC28B09049E1B344F3B8 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		33FF63D57C0D44D884D10DEA /* Product Sans Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Product Sans Italic.ttf"; path = "../src/assets/fonts/Product Sans Italic.ttf"; sourceTree = "<group>"; };
 		4B239E603C0343F6B973DE91 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		4CE0BD4F7D7047DDB52FA0F1 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		53EF93156DAE42A5BC4DCCE1 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		5419980A4243423797C9F610 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		5BBD411A7B3447289A78F707 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -87,7 +87,6 @@
 		D52AAF2DBF4C959E033B9C86 /* libPods-TestProject.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TestProject.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F5398A9FAD424BF4ADC17B4F /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		4CE0BD4F7D7047DDB52FA0F1 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,7 +338,6 @@
 				61FFD185839040569E9660D5 /* Zocial.ttf in Resources */,
 				BB11EAFFE0734CBD86DE256E /* Product-Sans-Bold.ttf in Resources */,
 				3DB87E504C7444DABE7E84B6 /* Product-Sans-Regular.ttf in Resources */,
-				FFA262EF0B3445AAAFACF822 /* Poppins-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
