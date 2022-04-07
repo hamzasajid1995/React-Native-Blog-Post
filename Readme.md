@@ -15,6 +15,11 @@
 
 A React Native based Mini Blog Post App where user can browse posts, view post and create new posts
 
+### Demo
+
+https://user-images.githubusercontent.com/17195591/162274789-39890f44-39c9-4334-bd2a-b2d2184a0ead.mp4
+
+
 ### Built With
 
 * [React-Native](https://reactnative.dev/)
