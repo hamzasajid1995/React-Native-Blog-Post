@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -6,25 +6,21 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AddPostScreen from '../components/screens/AddPostScreen';
 import HomeScreen from '../components/screens/HomeScreen';
 import UserFormScreen from '../components/screens/UserFormScreen';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUser} from '../redux/userSlice';
-import Layout from '../components/constants/layout';
+import {useSelector} from 'react-redux';
+
+import Layout from '../constants/layout';
 
 const Stack = createStackNavigator();
-const config = {
+
+const optionsConfig = {
   headerTintColor: '#fff',
   headerStyle: {
     backgroundColor: Layout.primaryColor,
   },
 };
+
 function AppNavigator() {
   const {userData} = useSelector(state => state.user);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(userData);
-    // dispatch(setUser(null));
-  }, []);
 
   return (
     <NavigationContainer>
@@ -34,7 +30,7 @@ function AppNavigator() {
             name="UserForm"
             component={UserFormScreen}
             options={{
-              ...config,
+              ...optionsConfig,
               title: 'Personal Info',
               headerTitle: 'Personal Info',
               headerBackTitle: '',
@@ -46,7 +42,7 @@ function AppNavigator() {
           name="Home"
           component={HomeScreen}
           options={{
-            ...config,
+            ...optionsConfig,
             title: 'Home',
             headerTitle: 'Home',
             headerBackTitle: '',
@@ -56,7 +52,7 @@ function AppNavigator() {
           name="AddPost"
           component={AddPostScreen}
           options={{
-            ...config,
+            ...optionsConfig,
             title: 'Add Post',
             headerTitle: 'Add Post',
             headerBackTitle: '',

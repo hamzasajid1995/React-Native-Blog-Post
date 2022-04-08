@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, View} from 'react-native';
-import Layout from '../constants/layout';
+import Layout from '../../constants/layout';
 
 export default function Loader({show}) {
   if (!show) {

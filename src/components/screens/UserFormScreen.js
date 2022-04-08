@@ -1,22 +1,22 @@
 import React, {useState} from 'react';
 import {
-  Text,
   View,
   TextInput,
   Pressable,
   Image,
   ScrollView,
+  StyleSheet,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
-import {SafeAreaView} from 'react-native-safe-area-context';
-
 import formData from '../../../form-data.json';
 import DatePicker from 'react-native-date-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../../redux/userSlice';
 import MyText from '../common/MyText';
-import Layout from '../constants/layout';
+import Layout from '../../constants/layout';
+import PrimaryButton from '../common/PrimaryButton';
+import CommonSafeAreaView from '../common/CommonSafeAreaView';
 
 function UserFormScreen() {
   const [data, setData] = useState(formData);
@@ -47,15 +47,15 @@ function UserFormScreen() {
   };
 
   return (
-    <SafeAreaView style={{flex: 1}} edges={['bottom', 'left', 'right']}>
+    <CommonSafeAreaView>
       <View style={{flex: 1}}>
         <ScrollView
-          contentContainerStyle={{padding: 16}}
+          contentContainerStyle={styles.scrollView}
           keyboardDismissMode="interactive">
           {data.map(input => {
             return (
-              <View style={{marginBottom: 16}} key={input.key}>
-                <MyText style={{marginBottom: 8, fontWeight: 'bold'}}>
+              <View style={styles.formItem} key={input.key}>
+                <MyText style={styles.inputLabel}>
                   {`${input.label} ${input.required ? '*' : ''}`}
                 </MyText>
                 {(function () {
@@ -110,44 +110,16 @@ function UserFormScreen() {
           })}
         </ScrollView>
       </View>
-      <View
-        style={{
-          flex: 0,
-          padding: 16,
-          paddingTop: 0,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
 
-          elevation: 5,
-        }}>
-        <Pressable
-          onPress={handleSubmit}
-          style={{
-            backgroundColor: Layout.primaryColor,
-            padding: 16,
-          }}>
-          <MyText style={{color: '#fff', textAlign: 'center'}}>Submit</MyText>
-        </Pressable>
-      </View>
-    </SafeAreaView>
+      <PrimaryButton label="Submit" onPress={handleSubmit} />
+    </CommonSafeAreaView>
   );
 }
 
 function CustomTextInput({input, onChange}) {
   return (
     <TextInput
-      style={{
-        backgroundColor: '#ddd',
-        borderRadius: 8,
-        padding: 8,
-        height: 40,
-        color: '#000',
-      }}
+      style={styles.textInput}
       value={input.value}
       onChangeText={text => onChange(text)}
       placeholder={input.placeholder}
@@ -175,19 +147,10 @@ function ImagePicker({input, onChange}) {
   };
   console.log(input.value?.uri);
   return (
-    <Pressable
-      onPress={openGallery}
-      style={{
-        width: 150,
-        height: 150,
-        borderRadius: 75,
-        backgroundColor: '#ccc',
-        overflow: 'hidden',
-        alignSelf: 'center',
-      }}>
+    <Pressable onPress={openGallery} style={styles.imageButton}>
       <Image
         source={{uri: input.value?.uri, isStatic: true}}
-        style={{width: '100%', height: '100%'}}
+        style={styles.imagePlaceholder}
       />
     </Pressable>
   );
@@ -202,25 +165,14 @@ function RadioOptions({input, onChange}) {
           onPress={() => {
             onChange(option.key);
           }}
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginRight: 12,
-          }}>
+          style={styles.radioContainer}>
           <View
-            style={{
-              width: 15,
-              height: 15,
-              borderRadius: 8,
-              borderWidth: 2,
-              borderColor:
-                input.value === option.key ? Layout.primaryColor : '#000',
-              backgroundColor:
-                input.value === option.key ? Layout.primaryColor : '#fff',
-              marginRight: 6,
-            }}
+            style={[
+              styles.radioButton,
+              input.value === option.key ? styles.radioButtonActive : null,
+            ]}
           />
-          <MyText>{option.label}</MyText>
+          <MyText style={styles.radioLabel}>{option.label}</MyText>
         </Pressable>
       ))}
     </View>
@@ -240,19 +192,11 @@ function CustomDatePicker({input, onChange}) {
   const date = input.value ? new Date(input.value) : new Date();
   return (
     <View>
-      <Pressable
-        style={{
-          backgroundColor: '#ddd',
-          borderRadius: 8,
-          padding: 8,
-          height: 40,
-          justifyContent: 'center',
-        }}
-        onPress={() => setShow(true)}>
+      <Pressable style={styles.dateButton} onPress={() => setShow(true)}>
         <MyText
-          style={{
-            color: input.value ? '#000' : '#bbb',
-          }}>
+          style={
+            input.value ? styles.dateButtonTextActive : styles.dateButtonText
+          }>
           {input.value ? getDateString(date) : input.placeholder}
         </MyText>
       </Pressable>
@@ -261,6 +205,7 @@ function CustomDatePicker({input, onChange}) {
         mode="date"
         open={show}
         date={date}
+        maximumDate={new Date()}
         onConfirm={newDate => {
           setShow(false);
           onDateChange(newDate);
@@ -272,5 +217,64 @@ function CustomDatePicker({input, onChange}) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  scrollView: {
+    padding: 16,
+  },
+  formItem: {marginBottom: 16},
+  inputLabel: {
+    marginBottom: 8,
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  textInput: {
+    backgroundColor: '#ddd',
+    borderRadius: 8,
+    padding: 8,
+    color: '#000',
+    fontSize: 16,
+  },
+  imageButton: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: '#ccc',
+    overflow: 'hidden',
+    alignSelf: 'center',
+  },
+  imagePlaceholder: {width: '100%', height: '100%'},
+  radioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  radioButton: {
+    width: 15,
+    height: 15,
+    borderRadius: 8,
+    borderWidth: 2,
+    marginRight: 6,
+    borderColor: '#000',
+    backgroundColor: '#fff',
+  },
+  radioButtonActive: {
+    borderColor: Layout.primaryColor,
+    backgroundColor: Layout.primaryColor,
+  },
+  radioLabel: {
+    fontSize: 16,
+  },
+  dateButton: {
+    backgroundColor: '#ddd',
+    borderRadius: 8,
+    padding: 8,
+    paddingVertical: 16,
+    // height: 40,
+    justifyContent: 'center',
+  },
+  dateButtonText: {color: '#bbb', fontSize: 16},
+  dateButtonTextActive: {color: '#000'},
+});
 
 export default UserFormScreen;

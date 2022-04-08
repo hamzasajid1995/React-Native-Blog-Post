@@ -1,21 +1,21 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 
-import {View, Text, FlatList, Pressable} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 import Toast from 'react-native-root-toast';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import {setPosts} from '../../redux/postSlice';
 import PostService from '../../services/post.service';
+import CommonSafeAreaView from '../common/CommonSafeAreaView';
 import Loader from '../common/Loader';
 import MyText from '../common/MyText';
-import Layout from '../constants/layout';
+import PrimaryButton from '../common/PrimaryButton';
 
 function HomeScreen() {
   const [isLoading, setLoading] = useState(true);
   const {posts = []} = useSelector(state => state.post);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -34,54 +34,45 @@ function HomeScreen() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [dispatch]);
 
   return (
-    <SafeAreaView style={{flex: 1}} edges={['bottom', 'left', 'right']}>
+    <CommonSafeAreaView>
       <Loader show={isLoading} />
-      <View style={{flex: 1}}>
+      <View style={styles.postsContainer}>
         <FlatList
-          contentContainerStyle={{padding: 16}}
+          contentContainerStyle={styles.postsScrollview}
           data={posts}
-          renderItem={({item}) => (
-            <View style={{borderWidth: 1, marginBottom: 16, padding: 8}}>
-              <MyText style={{fontWeight: 'bold'}}>{item.title}</MyText>
-              <MyText>{item.body}</MyText>
-            </View>
-          )}
+          renderItem={({item}) => <PostItem post={item} />}
           keyExtractor={item => item.id}
         />
       </View>
-      <View
-        style={{
-          flex: 0,
-          padding: 16,
-          paddingTop: 0,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
 
-          elevation: 5,
-        }}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate('AddPost');
-          }}
-          style={{
-            backgroundColor: Layout.primaryColor,
-            padding: 16,
-          }}>
-          <MyText style={{color: '#fff', textAlign: 'center'}}>
-            Add New Post
-          </MyText>
-        </Pressable>
-      </View>
-    </SafeAreaView>
+      <PrimaryButton
+        label="Add new post"
+        onPress={() => navigation.navigate('AddPost')}
+      />
+    </CommonSafeAreaView>
   );
 }
+
+function PostItem({post}) {
+  return (
+    <View style={styles.post}>
+      <MyText style={styles.postTitle}>{post.title}</MyText>
+      <MyText style={styles.postBody}>{post.body}</MyText>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  postsContainer: {
+    flex: 1,
+  },
+  postsScrollview: {padding: 16},
+  post: {borderWidth: 1, marginBottom: 16, padding: 8},
+  postTitle: {fontWeight: 'bold', fontSize: 18, textTransform: 'capitalize'},
+  postBody: {fontSize: 16, textTransform: 'capitalize'},
+});
 
 export default HomeScreen;
