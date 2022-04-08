@@ -4,10 +4,10 @@ import React, {useRef, useState} from 'react';
 import {View, TextInput, ScrollView, StyleSheet} from 'react-native';
 import Toast from 'react-native-root-toast';
 import {useDispatch} from 'react-redux';
-import {addPost} from '../../redux/postSlice';
-import CommonSafeAreaView from '../common/CommonSafeAreaView';
-import MyText from '../common/MyText';
-import PrimaryButton from '../common/PrimaryButton';
+import {addPost} from '../redux/postSlice';
+import CommonSafeAreaView from '../components/common/CommonSafeAreaView';
+import MyText from '../components/common/MyText';
+import PrimaryButton from '../components/common/PrimaryButton';
 
 function AddPostScreen() {
   const [title, setTitle] = useState('');

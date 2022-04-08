@@ -3,9 +3,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import AddPostScreen from '../components/screens/AddPostScreen';
-import HomeScreen from '../components/screens/HomeScreen';
-import UserFormScreen from '../components/screens/UserFormScreen';
+import AddPostScreen from '../screens/AddPostScreen';
+import HomeScreen from '../screens/HomeScreen';
+import UserFormScreen from '../screens/UserFormScreen';
 import {useSelector} from 'react-redux';
 
 import Layout from '../constants/layout';

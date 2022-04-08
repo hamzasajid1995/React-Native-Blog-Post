@@ -8,15 +8,15 @@ import {
   StyleSheet,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
-import formData from '../../../form-data.json';
+import formData from '../../form-data.json';
 import DatePicker from 'react-native-date-picker';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch} from 'react-redux';
-import {setUser} from '../../redux/userSlice';
-import MyText from '../common/MyText';
-import Layout from '../../constants/layout';
-import PrimaryButton from '../common/PrimaryButton';
-import CommonSafeAreaView from '../common/CommonSafeAreaView';
+import {setUser} from '../redux/userSlice';
+import MyText from '../components/common/MyText';
+import Layout from '../constants/layout';
+import PrimaryButton from '../components/common/PrimaryButton';
+import CommonSafeAreaView from '../components/common/CommonSafeAreaView';
 
 function UserFormScreen() {
   const [data, setData] = useState(formData);

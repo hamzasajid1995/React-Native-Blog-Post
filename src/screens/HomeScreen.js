@@ -4,12 +4,12 @@ import React, {useEffect, useState} from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
 import Toast from 'react-native-root-toast';
 import {useDispatch, useSelector} from 'react-redux';
-import {setPosts} from '../../redux/postSlice';
-import PostService from '../../services/post.service';
-import CommonSafeAreaView from '../common/CommonSafeAreaView';
-import Loader from '../common/Loader';
-import MyText from '../common/MyText';
-import PrimaryButton from '../common/PrimaryButton';
+import {setPosts} from '../redux/postSlice';
+import PostService from '../services/post.service';
+import CommonSafeAreaView from '../components/common/CommonSafeAreaView';
+import Loader from '../components/common/Loader';
+import MyText from '../components/common/MyText';
+import PrimaryButton from '../components/common/PrimaryButton';
 
 function HomeScreen() {
   const [isLoading, setLoading] = useState(true);
