@@ -17,8 +17,7 @@ A React Native based Mini Blog Post App where user can browse posts, view post a
 
 ### Demo
 
-https://user-images.githubusercontent.com/17195591/162274789-39890f44-39c9-4334-bd2a-b2d2184a0ead.mp4
-
+https://user-images.githubusercontent.com/17195591/162444125-c50e7fe4-ff3f-4461-8648-1633a7f79fed.mp4
 
 ### Built With
 
